@@ -104,11 +104,11 @@ namespace Application1.Controllers
         }
 
         [HttpPost]
-        public List<Product> GetFilter([FromBody]Filter filter)
+        public List<Product> GetFilter([FromBody] Filter filter)
         {
             var list = from a in _appDbContext.Products
                        select a;
-            if (filter.CategoryId.ToString()!=null)
+            if (filter.CategoryId.ToString() != "")
             {
                 list = from a in list
                        where a.CategoryId == filter.CategoryId
@@ -117,31 +117,31 @@ namespace Application1.Controllers
 
             // if (filter.ProductName != null)
 
-            if (filter.ProductName != "")
+            if (filter.ProductName.ToString() != "")
             {
                 list = from a in list
                        where a.ProductName.Contains(filter.ProductName)
                        select a;
             }
-            if (filter.ProductMinPrice != null)
+            if (filter.ProductMinPrice.ToString() != "")
             {
                 list = from a in list
                        where a.ProductPrice >= filter.ProductMinPrice
                        select a;
             }
-            if ( filter.ProductMaxPrice != null)
+            if (filter.ProductMaxPrice.ToString() != "")
             {
                 list = from a in list
                        where a.ProductPrice <= filter.ProductMaxPrice
                        select a;
             }
-            if (filter.ProductMinStock != null)
+            if (filter.ProductMinStock.ToString() != "")
             {
                 list = from a in list
                        where a.ProductStock > filter.ProductMinStock
                        select a;
 
-            }          
+            }
             return list.ToList();
         }
 
